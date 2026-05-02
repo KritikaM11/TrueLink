@@ -1,0 +1,491 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 5rem;
+  width: 100%;
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  left: 0;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 100;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: linear-gradient(
+    to right, 
+    rgba(255, 255, 255, 0.95) 0%,   
+    rgba(255, 255, 255, 0.7) 30%,   
+    rgba(255, 255, 255, 0.4) 50%, 
+    rgba(255, 255, 255, 0.2) 60% 
+  );
+  transition: background 0.4s ease, padding 0.4s ease;
+}
+.navbar.scrolled {
+  background: #1d4ed8;
+  padding: 1.35rem 5rem;
+   box-shadow: 0 4px 32px rgba(29, 78, 216, 0.4); 
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-shrink: 0;
+}
+
+.logo-icon {
+  transform: rotate(-10deg);
+  transition: stroke 0.4s ease;
+}
+
+.logo-text {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #111827; 
+  letter-spacing: -0.3px;
+  transition: color 0.4s ease;
+}
+.navbar.scrolled .logo-text {
+  color: #ffffff;
+}
+/* --- Buttons Styling --- */
+.nav-actions {
+  display: flex;
+  gap: 1.2rem;
+  align-items: center;
+}
+
+.btn-login {
+  background: white;
+  border: none;
+  color: #111827;
+  padding: 0.6rem 1.6rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.434);
+}
+
+.btn-login:hover {
+  transform: scale(1.1);
+  border: none;
+  
+}
+.navbar.scrolled .btn-login {
+  background: transparent;
+  color: #ffffff;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+}
+
+.navbar.scrolled .btn-login:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.btn-signup {
+  background: linear-gradient(180deg, #1d4ed8 0%, #1e40af 100%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #ffffff;
+  padding: 0.55rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  box-shadow: 0 0 16px 2px rgba(2, 12, 34, 0.603);
+  transition: all 0.2s ease;
+}
+
+.btn-signup:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 22px 4px rgba(2, 13, 39, 0.584);
+  background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
+}
+.navbar.scrolled .btn-signup {
+  background: #ffffff;
+  color: #1d4ed8;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.navbar.scrolled .btn-signup:hover {
+  background: #f8fafc;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.btn-history {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: white;
+  border: 1.5px solid rgba(29, 78, 216, 0.4);
+  color: #1d4ed8;
+  padding: 0.55rem 1.4rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.43);
+  white-space: nowrap;
+}
+ 
+.btn-history:hover {
+  transform: scale(1.06);
+  background: #1d4ed8;
+  color: #ffffff;
+  border-color: #1d4ed8;
+}
+ 
+.navbar.scrolled .btn-history {
+  background: transparent;
+  color: #ffffff;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  box-shadow: none;
+}
+ 
+.navbar.scrolled .btn-history:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+ 
+.navbar.authnav .btn-history {
+  background: #f1f5f9;
+  border: 1px solid #1d4ed8;
+  color: #1d4ed8;
+  box-shadow: none;
+}
+ 
+.navbar.authnav .btn-history:hover {
+  background: #1d4ed8;
+  color: #ffffff;
+}
+
+/* logout model */
+.logout-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  animation: fadeIn 0.2s ease;
+}
+
+.logout-modal {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 2.2rem 2rem;
+  width: 100%;
+  max-width: 380px;
+  margin: 0 1rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  animation: slideUp 0.25s ease;
+}
+
+.logout-modal-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.4rem;
+}
+
+.logout-modal-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+}
+
+.logout-modal-actions {
+  display: flex;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.logout-btn-cancel {
+  flex: 1;
+  padding: 0.75rem;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #475569;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.logout-btn-cancel:hover {
+  background: #e2e8f0;
+}
+
+.logout-btn-confirm {
+  flex: 1;
+  padding: 0.75rem;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #ffffff;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.logout-btn-confirm:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(239, 68, 68, 0.45);
+}
+
+.hamburger-btn {
+  /* Visible only on mobile — use opacity+pointer-events instead of display:none */
+  opacity: 0;
+  pointer-events: none;
+  width: 0;
+  overflow: hidden;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 101;
+  transition: opacity 0.2s ease, color 0.4s ease;
+  color: #111827;
+  flex-shrink: 0;
+}
+ 
+.navbar.scrolled .hamburger-btn { color: white; }
+.navbar.authnav .hamburger-btn { color: #1d4ed8; }
+ 
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+ 
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+ 
+@keyframes menuSlideDown {
+  from { transform: translateY(-8px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+@media (max-width: 768px) {
+ 
+  .navbar {
+    padding: 1rem 1.4rem;
+    overflow: visible;
+    border-bottom: 1px solid transparent;
+    transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+  }
+ 
+  .navbar.scrolled {
+    padding: 1rem 1.4rem;
+  }
+ 
+  .logo-text { font-size: 1.55rem; }
+ 
+  /* ── Show hamburger ── */
+  .hamburger-btn {
+    opacity: 1;
+    pointer-events: auto;
+    width: auto;
+    overflow: visible;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: rgba(29, 78, 216, 0.07);
+    border: 1px solid rgba(29, 78, 216, 0.18);
+    transition: background 0.25s ease, border-color 0.25s ease, transform 0.15s ease;
+  }
+ 
+  .hamburger-btn:active {
+    transform: scale(0.93);
+  }
+ 
+  .navbar.scrolled .hamburger-btn {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+ 
+  /* ── Mobile menu panel ── */
+  .nav-actions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+ 
+    /* Glass effect */
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
+ 
+    /* Elegant border + shadow */
+    border-bottom: 1px solid rgba(29, 78, 216, 0.14);
+    box-shadow:
+      0 12px 40px rgba(29, 78, 216, 0.12),
+      0 2px 8px rgba(0, 0, 0, 0.06);
+ 
+    /* Hidden state — NO display:none */
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+ 
+    transition:
+      opacity 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+      transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+      visibility 0.28s;
+
+    z-index: 999;
+  }
+ 
+  /* Open state */
+  .nav-actions.nav-actions--open {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    padding: 1rem 1.2rem 1.4rem;
+    gap: 0.6rem;
+  }
+ 
+  /* Individual button wrappers — stagger animation */
+  .nav-actions.nav-actions--open > * {
+    animation: menuSlideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .nav-actions.nav-actions--open > *:nth-child(1) { animation-delay: 0.04s; }
+  .nav-actions.nav-actions--open > *:nth-child(2) { animation-delay: 0.1s; }
+  .nav-actions.nav-actions--open > *:nth-child(3) { animation-delay: 0.16s; }
+ 
+  /* ── Separator line between buttons ── */
+  .nav-actions > * + * {
+    border-top: 1px solid rgba(29, 78, 216, 0.08);
+    padding-top: 0.6rem;
+    margin-top: 0;
+  }
+ 
+  /* ── Override all mobile buttons to be full-width, premium ── */
+  .btn-history,
+  .btn-login,
+  .btn-signup {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    padding: 0.9rem 1.2rem;
+    border-radius: 12px;
+    font-size: 0.97rem;
+    font-weight: 600;
+    box-shadow: none;
+    transform: none !important; /* disable scale hover on mobile */
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+ 
+  /* History — outlined blue */
+  .btn-history {
+    background: rgba(29, 78, 216, 0.05);
+    border: 1.5px solid rgba(29, 78, 216, 0.25);
+    color: #1d4ed8;
+  }
+  .btn-history:active {
+    background: rgba(29, 78, 216, 0.12);
+  }
+ 
+  /* Login / Logout — subtle ghost */
+  .btn-login {
+    background: transparent;
+    border: 1.5px solid rgba(100, 116, 139, 0.3);
+    color: #334155;
+    box-shadow: none;
+  }
+  .btn-login:active {
+    background: rgba(100, 116, 139, 0.08);
+  }
+ 
+  /* Sign-up / Get Started — solid gradient, premium feel */
+  .btn-signup {
+    background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+    color: #ffffff;
+    border: none;
+    box-shadow:
+      0 4px 18px rgba(29, 78, 216, 0.32),
+      inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  }
+  .btn-signup:active {
+    background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+  }
+ 
+  /* ── When scrolled, glass panel goes dark ── */
+  .navbar.scrolled .nav-actions {
+    background: rgba(15, 23, 65, 0.88);
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  }
+ 
+  .navbar.scrolled .nav-actions > * + * {
+    border-top-color: rgba(255, 255, 255, 0.07);
+  }
+ 
+  .navbar.scrolled .btn-history {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.22);
+    color: #e2e8f0;
+  }
+ 
+  .navbar.scrolled .btn-login {
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.18);
+    color: #cbd5e1;
+  }
+ 
+  .navbar.scrolled .btn-signup {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    color: #ffffff;
+  }
+ 
+  /* ── Decorative top accent line on the panel ── */
+  .nav-actions::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 1.5rem;
+    right: 1.5rem;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(29, 78, 216, 0.5), transparent);
+    border-radius: 0 0 2px 2px;
+    opacity: 0;
+    transition: opacity 0.28s ease;
+  }
+ 
+  .nav-actions.nav-actions--open::before {
+    opacity: 1;
+  }
+}

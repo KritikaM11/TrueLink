@@ -1,0 +1,170 @@
+
+.lobby {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: 'DM Sans', sans-serif;
+    background: white;
+    position: relative;
+}
+
+.lobby-grid {
+    display: flex;
+    gap: 48px;
+    align-items: center;
+    z-index: 1;
+    max-width: 960px;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+.lobby-video-wrap {
+    position: relative;
+    border-radius: 11px;
+    overflow: hidden;
+    border: 1px solid #1D4ED8;
+    box-shadow: 0 0 20px #1D4ED8;
+    background: #0a0f1e;
+    flex-shrink: 0;
+}
+
+.lobby-video {
+    width: 100%;
+    max-width: 600px; 
+    aspect-ratio: 16 / 9; 
+    height: auto;
+    object-fit: cover;
+    display: block;
+    background: #0a0f1e;
+    border-radius: 11px;
+}
+
+.lobby-video-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 40px 16px 16px;
+    background: linear-gradient(to top, rgba(5,10,20,0.85) 0%, transparent 100%);
+}
+
+.lobby-video-label {
+    color: rgba(255,255,255,0.6);
+    font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+}
+
+.lobby-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 19rem;
+    max-width: 19rem;
+}
+
+.lobby-card {
+    background: rgba(233, 232, 237, 0.241);
+    box-shadow:  0px 2.709px 14.449px 0px rgba(0,0,0,.06) inset,0px 1.127px 6.012px 0px rgba(0,0,0,.04) inset;
+    border: 1px solid #1D4ED8;
+    border-radius: 18px;
+    padding: 22px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+}
+
+.lobby-card-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color:  #1D4ED8;
+    margin-bottom: 10px;
+    font-family: 'DM Sans', sans-serif;
+}
+
+/* ── Shared Inputs & Buttons ── */
+.input {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1px solid  #1D4ED8;
+    background: rgba(255,255,255,0.05);
+    color:  #1D4ED8;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+
+.btn {
+    width: 100%;
+    padding: 13px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #00d4ff 0%, #7c3aed 100%);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: 0.02em;
+    box-shadow: 0 4px 24px rgba(0,212,255,0.25);
+    margin-top: 14px;
+    display: block;
+    transition: opacity 0.2s, transform 0.1s;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.error-text {
+    color: #ff6b6b;
+    font-size: 12px;
+    font-family: 'DM Sans', sans-serif;
+    padding: 8px 12px;
+    background: rgba(255,107,107,0.1);
+    border: 1px solid rgba(255,107,107,0.2);
+    border-radius: 8px;
+}
+@media (max-width: 768px) {
+    .lobby {
+        /* Stop centering vertically on mobile so it doesn't get cut off */
+        align-items: flex-start; 
+        /* Add padding to push it down below your fixed navbar */
+        padding-top: 100px; 
+        padding-bottom: 2rem;
+        height: auto;
+    }
+
+    .lobby-grid {
+        flex-direction: column; /* Stack video and form vertically */
+        gap: 1.5rem;
+        padding: 0 1.25rem; /* Give it some breathing room on the edges */
+    }
+
+    .lobby-video-wrap {
+        width: 100%;
+    }
+
+    .lobby-video {
+        width: 100%;
+        height: auto;
+        /* 4/3 aspect ratio looks much better for mobile camera feeds */
+        aspect-ratio: 4 / 3; 
+    }
+
+    .lobby-panel {
+        width: 100%; /* Let the form take up the full width */
+    }
+}

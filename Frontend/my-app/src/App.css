@@ -1,0 +1,36 @@
+/* --- Global Reset & Background --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* --- Footer --- */
+.footer-wrapper {
+  padding: 1.5rem 5rem;
+  padding-bottom: 2rem;
+}
+
+.footer-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 3rem;
+  border-radius: 16px;
+  font-size: 0.95rem;
+}
+
+.social-icons {
+  display: flex;
+  gap: 1.5rem;
+  cursor: pointer;
+}
+
+.social-icons svg {
+  transition: color 0.2s;
+}
+
+.social-icons svg:hover {
+  color: #93c5fd;
+}

@@ -1,0 +1,506 @@
+.security-section {
+  position: relative;
+  overflow: hidden;
+  padding: 7rem 5rem;
+  background-image: url('../../../assets/bg3.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+}
+
+.sec-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(1, 32, 22, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(3, 37, 26, 0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, black 10%, transparent 100%);
+}
+
+/* ── Layout ── */
+.sec-inner {
+  position: relative;
+  z-index: 10;
+  max-width: 1300px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+}
+
+.sec-visual {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.sec-visual.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Shield wrapper */
+.shield-wrapper {
+  position: relative;
+  width: 260px;
+  height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Pulse rings */
+.pulse-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(16, 185, 129, 0.805);
+  animation: ringPulse 3s ease-out infinite;
+}
+
+.pulse-ring:nth-child(1) {
+  width: 130px;
+  height: 130px;
+  animation-delay: 0s;
+}
+
+.pulse-ring:nth-child(2) {
+  width: 180px;
+  height: 180px;
+  animation-delay: 0.7s;
+}
+
+.pulse-ring:nth-child(3) {
+  width: 230px;
+  height: 230px;
+  animation-delay: 1.4s;
+}
+
+@keyframes ringPulse {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.6;
+  }
+
+  100% {
+    transform: scale(1.15);
+    opacity: 0;
+  }
+}
+
+/* Shield icon circle */
+.shield-core {
+  position: relative;
+  z-index: 5;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(16, 185, 129, 0.05));
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 0 40px rgba(16, 185, 129, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  animation: shieldFloat 4s ease-in-out infinite;
+}
+
+@keyframes shieldFloat {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.shield-core svg {
+  color: #10b981;
+  filter: drop-shadow(0 0 12px rgba(16, 185, 129, 0.6));
+}
+
+/* Scan line animation on shield */
+.shield-scan {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  border-radius: 50%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.shield-scan::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(to right, transparent, rgba(16, 185, 129, 0.6), transparent);
+  animation: scanLine 2.5s ease-in-out infinite;
+}
+
+@keyframes scanLine {
+  0% {
+    top: 0%;
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+/* Live status pill */
+.sec-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(16, 185, 129, 0.08);
+  border: 2px solid rgba(16, 185, 129, 0.25);
+  border-radius: 999px;
+  padding: 0.5rem 1.2rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #218c61;
+}
+
+.status-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+  animation: statusPulse 1.8s ease infinite;
+}
+
+@keyframes statusPulse {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.5;
+    transform: scale(0.7);
+  }
+}
+
+/* Encryption path visual */
+.enc-path {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+  max-width: 320px;
+}
+
+.enc-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  flex: 0 0 auto;
+}
+
+.enc-node-circle {
+  width: 40px;
+  height: 42px;
+  background: rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+
+.enc-node-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color:  #086949;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+/* Animated dashes between nodes */
+.enc-line {
+  flex: 1;
+  height: 2px;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+  background: rgba(13, 155, 107, 0.24);
+}
+
+.enc-line::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(to right, transparent, #10b981, transparent);
+  animation: encFlow 2s linear infinite;
+}
+
+.enc-line:nth-child(4)::after {
+  animation-delay: 1s;
+}
+
+@keyframes encFlow {
+  from {
+    left: -60%;
+  }
+
+  to {
+    left: 110%;
+  }
+}
+
+/* Lock icon in middle */
+.enc-lock {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #10b981;
+  margin-bottom: 20px;
+}
+
+/* =============================================
+   RIGHT: CONTENT
+============================================= */
+.sec-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Header */
+.sec-header {
+  margin-bottom: 2.5rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.sec-header.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.sec-eyebrow {
+  display: inline-flex;
+  margin-bottom: 1.2rem;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #10b981;
+}
+
+.sec-heading {
+  font-family: 'Syne', sans-serif;
+  font-size: 2.6rem;
+  font-weight: 800;
+  color:  #1d4ed8;
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+
+.sec-heading span {
+  background:   #1d4ed8;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.sec-desc {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  color: #011f14;
+  line-height: 1.75;
+  max-width: 460px;
+}
+
+/* Security feature cards */
+.sec-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sec-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding: 1.3rem 1.5rem;
+  background: rgba(255, 255, 255, 0.696);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 16px;
+  cursor: default;
+  opacity: 0;
+  transform: translateX(30px);
+  transition:
+    opacity 0.55s ease,
+    transform 0.55s ease,
+    background 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.sec-card.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.sec-card:hover {
+  background: rgba(16, 185, 129, 0.05);
+  border-color: rgba(30, 119, 89, 0.25);
+  box-shadow: 0 0 30px rgba(16, 185, 129, 0.08);
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.sec-card-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  color: #10b981;
+  transition: box-shadow 0.25s ease;
+}
+
+.sec-card:hover .sec-card-icon {
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.3);
+}
+
+.sec-card-body {
+  flex: 1;
+}
+
+.sec-card-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color:  #1d4ed8;
+  margin-bottom: 0.3rem;
+}
+
+.sec-card-desc {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  color:black;
+  line-height: 1.6;
+}
+
+.sec-card-badge {
+  flex-shrink: 0;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  color: #6ee7b7;
+  white-space: nowrap;
+  align-self: center;
+}
+/* =============================================
+   RESPONSIVE
+============================================= */
+@media (max-width: 1024px) {
+  .sec-inner {
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+  }
+
+  .sec-visual {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .security-section {
+    padding: 5rem 2.5rem;
+  }
+
+  .sec-heading {
+    font-size: 2.1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .security-section {
+    padding: 4rem 1.5rem;
+  }
+
+  .sec-heading {
+    font-size: 1.85rem;
+  }
+
+  .enc-path {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .sec-card {
+    flex-direction: column; /* Stack the icon, text, and badge vertically */
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem;
+  }
+
+  .sec-card-badge {
+    align-self: flex-start; /* Move the badge to the bottom left */
+    margin-top: 0.25rem;
+  }
+  
+  .sec-heading {
+    font-size: 1.6rem; /* Shrink the massive header just a touch more */
+  }
+  
+  /* Slightly scale down the shield animation to prevent horizontal scrolling */
+  .shield-wrapper {
+    transform: scale(0.85);
+  }
+}
