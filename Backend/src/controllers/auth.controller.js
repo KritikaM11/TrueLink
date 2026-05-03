@@ -1,5 +1,5 @@
 import { User } from "../models/user.model.js";
-import { wrapAsync } from "../utils/temp.js";
+import { wrapAsync } from "../utils/wrapAsync.js";
 import httpStatus from "http-status";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
