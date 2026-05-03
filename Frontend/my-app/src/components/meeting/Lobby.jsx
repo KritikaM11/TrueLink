@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Navbar } from '../layout/Navbar/Navbar'; 
 import { useLocation } from 'react-router-dom';
-import "../../styles/Lobby.css";
+import "../../Styles/Lobby.css";
 
 const Lobby = ({ username, setUsername, localVideoRef, permissionError, onConnect, nameError }) => {
     const location = useLocation();

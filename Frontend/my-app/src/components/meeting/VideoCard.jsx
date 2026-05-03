@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import "../../styles/VideoMeet.css";
+import "../../Styles/VideoMeet.css";
 
 const VideoCard = ({ stream, socketId, username, isPinnedArea, isScreen,isMuted,isVideoOff, onPin }) => {
     const ref = useRef(null);

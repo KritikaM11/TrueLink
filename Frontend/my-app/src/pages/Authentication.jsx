@@ -7,7 +7,7 @@ import { BrandPanel } from '../components/auth/BrandPanel';
 import { AuthForm } from '../components/auth/AuthForm';
 import { useAuthForm } from '../hooks/useAuthForm';
 import { NotFound } from './NotFound';
-import '../styles/Auth.css';
+import '../Styles/Auth.css';
 
 export const AuthenticationPage = () => {
     const authData = useAuthForm();

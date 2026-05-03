@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import "../../styles/ChatPanel.css";
+import "../../Styles/ChatPanel.css";
 
 const ChatPanel = ({ messages, message, setMessage, onSend, onClose }) => {
     const bottomRef = useRef(null);

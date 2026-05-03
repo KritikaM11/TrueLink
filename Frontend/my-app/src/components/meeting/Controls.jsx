@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import "../../styles/Controls.css";
+import "../../Styles/Controls.css";
 
 /* ── Icons ── */
 const MicIcon = () => (

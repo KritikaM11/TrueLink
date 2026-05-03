@@ -10,7 +10,7 @@ import { GridLayout } from "../components/meeting/GridLayout";
 
 import { useMeetingRoom } from "../hooks/useMeetingRoom";
 import { useAuth } from "../contexts/AuthContext";
-import "../styles/videoMeet.css";
+import "../Styles/VideoMeet.css";
 
 const PAGE_SIZE = 16;
 function getGridDimensions(count) {
