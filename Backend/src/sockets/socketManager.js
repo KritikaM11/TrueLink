@@ -4,6 +4,7 @@ import { Meeting } from "../models/meeting.model.js";
 let connections = {};   // roomPath → [socketId, ...]
 let messages = {};   // roomPath → [{ sender, data, socket-id-sender }, ...]
 let timeOnline = {};   // socketId → Date
+let pendingClosures = {};
 
 const extractCode = (path) => {
     const m = path.match(/([a-z]{3}-[a-z]{4}-[a-z]{3})/);
@@ -12,6 +13,7 @@ const extractCode = (path) => {
 
 const findRoom = (socketId) =>
     Object.entries(connections).find(([, members]) => members.includes(socketId))?.[0];
+
 
 export const connectToSocket = (server) => {
     const io = new Server(server, {
@@ -28,6 +30,12 @@ export const connectToSocket = (server) => {
 
         socket.on("join-call", (path) => {
             if (!path || typeof path !== "string") return;
+           
+            if (pendingClosures[path]) {
+                clearTimeout(pendingClosures[path]);
+                delete pendingClosures[path];
+            }
+            
             connections[path] ??= [];
             connections[path].push(socket.id);
             timeOnline[socket.id] = new Date();
@@ -146,15 +154,22 @@ export const connectToSocket = (server) => {
                 members.splice(idx, 1);
 
                 if (members.length === 0) {
-                    const code = extractCode(roomPath);
-                    if (code) {
-                        Meeting.findOneAndUpdate(
-                            { meeting_code: code, ended_at: null },
-                            { $set: { ended_at: new Date() } }
-                        ).catch(console.error);
-                    }
-                    delete connections[roomPath];
-                    delete messages[roomPath];
+                    pendingClosures[roomPath] = setTimeout(() => {
+                        
+                        // Double check it's STILL empty after 10 seconds
+                        if (!connections[roomPath] || connections[roomPath].length === 0) {
+                            const code = extractCode(roomPath);
+                            if (code) {
+                                Meeting.findOneAndUpdate(
+                                    { meeting_code: code, ended_at: null },
+                                    { $set: { ended_at: new Date() } }
+                                ).catch(console.error);
+                            }
+                            delete connections[roomPath];
+                            delete messages[roomPath];
+                            delete pendingClosures[roomPath];
+                        }
+                    }, 10000); 
                 }
                 break;
             }

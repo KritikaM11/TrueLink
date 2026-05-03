@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import useMediaPermissions from './useMediaPermissions';
 import useWebRTC from './useWebRTC';
 import useSocket from './useSocket';
-
+import {meetingApi} from '../api/index.js';
 const getMeetingCode = () => window.location.pathname.replace(/^\/+/, '').split('?')[0];
 
 export const useMeetingRoom = (user) => {
@@ -176,7 +176,7 @@ export const useMeetingRoom = (user) => {
     useEffect(() => { if (localVideoRef.current && window.localStream) localVideoRef.current.srcObject = window.localStream; }, [pinnedId, askForUsername, videos.length, localVideoRef]);
     useEffect(() => { if (showChat) setNewMessages(0); }, [messages, showChat]);
 
-    const handleConnect = () => {
+    const handleConnect = async () => {
         if (!username.trim()) { setNameError("Please enter a valid display name."); return; }
         setVideo(videoAvailable);
         setAudio(audioAvailable);
@@ -185,14 +185,8 @@ export const useMeetingRoom = (user) => {
             const vt = window.localStream.getVideoTracks()[0];
             if (vt) videoTrackRef.current = vt;
         }
-
-        connectToSocketServer();
-        // setTimeout(() => {
-        //     const savedUser = JSON.parse(localStorage.getItem('tl_user') || '{}');
-        //     socketRef.current = io.connect(SERVER_URL, {
-        //         auth: { token: localStorage.getItem("tl_user") ? JSON.parse(localStorage.getItem("tl_user")).token : null }
-        //     });
-        // }, 800);
+        const isGuest = !localStorage.getItem("tl_user");
+        connectToSocketServer(username, isGuest);
     };
 
     const handleToggleScreen = async () => {

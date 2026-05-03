@@ -15,20 +15,25 @@ const useSocket = ({
     setNewMessages,
 }) => {
 
-    const connectToSocketServer = useCallback(() => {
+    const connectToSocketServer = useCallback((username, isGuest) => {
         socketRef.current = io.connect(SERVER_URL, { secure: false });
 
         // ── WebRTC signalling ──
         socketRef.current.on("signal", gotMessageFromServer);
 
         socketRef.current.on("connect", () => {
-            const meetingCode = window.location.pathname.replace('/', '');
+            const meetingCode = window.location.pathname.replace(/^\/+/, '').split('?')[0];
             socketRef.current.emit("join-call", meetingCode);
             socketIdRef.current = socketRef.current.id;
 
+            socketRef.current.emit("register-participant", {
+                name: username,
+                username: isGuest ? null : username,
+                isGuest: isGuest
+            });
+            
             // ── Incoming chat message ──
             socketRef.current.on("chat-message", (data, sender, senderSocketId) => {
-                // Ignore the message if it came from our own socket connection
                 if (senderSocketId === socketIdRef.current) {
                     return;
                 }
