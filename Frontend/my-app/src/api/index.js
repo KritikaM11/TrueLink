@@ -25,15 +25,15 @@ async function request(path, options = {}) {
 
 //  Auth 
 export const authApi = {
-    login:   (body) => request("/auth/login",    { method: "POST", body: JSON.stringify(body) }),
-    register:(body) => request("/auth/register", { method: "POST", body: JSON.stringify(body) }),
-    verify:  ()    => request("/auth/verify",    { headers: authHeaders() }),
+    login: (body) => request("/auth/login", { method: "POST", body: JSON.stringify(body) }),
+    register: (body) => request("/auth/register", { method: "POST", body: JSON.stringify(body) }),
+    verify: () => request("/auth/verify", { headers: authHeaders() }),
 };
 
 //  Meetings
 export const meetingApi = {
-    join:        (meeting_code) => request("/meeting/join",              { method: "POST", headers: authHeaders(), body: JSON.stringify({ meeting_code }) }),
-    history:     ()             => request("/meeting/history",           { headers: authHeaders() }),
-    messages:    (code)         => request(`/meeting/${code}/messages`,  { headers: authHeaders() }),
-    checkExists: (code)         => request(`/meeting/${code}/exists`),
+    join: (meeting_code) => request("/meeting/join", { method: "POST", headers: authHeaders(), body: JSON.stringify({ meeting_code }) }),
+    history: () => request("/meeting/history", { headers: authHeaders() }),
+    messages: (code) => request(`/meeting/${code}/messages`, { headers: authHeaders() }),
+    checkExists: (code) => request(`/meeting/${code}/exists`, { headers: getToken() ? authHeaders() : {} }),
 };

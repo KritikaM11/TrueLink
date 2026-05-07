@@ -62,6 +62,7 @@ export const connectToSocket = (server) => {
                         meeting_code: code,
                         host: name,
                         started_at: new Date(),
+                        expires_at: new Date(Date.now() + 24 * 60 * 60 * 1000),
                         participants: [],
                     });
                 } else if (!meeting.host || meeting.host === "Unknown") {

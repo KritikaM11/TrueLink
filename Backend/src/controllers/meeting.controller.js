@@ -5,6 +5,11 @@ import { getActiveRooms } from "../sockets/socketManager.js";
 export const checkMeetingExists = wrapAsync(async (req, res) => {
     const { code } = req.params;
 
+    const MEETING_CODE_REGEX = /^[a-z]{3}-[a-z]{4}-[a-z]{3}$/;
+    if (!MEETING_CODE_REGEX.test(code)) {
+        return res.status(400).json({ exists: false, message: "Invalid meeting code format." });
+    }
+
     // 1. Check live in-memory rooms first (fastest)
     const activeRooms = getActiveRooms();
     const inMemory = Object.keys(activeRooms).some(
@@ -16,16 +21,21 @@ export const checkMeetingExists = wrapAsync(async (req, res) => {
     const meeting = await Meeting.findOne({ meeting_code: code });
 
     if (!meeting) {
-        // Code was never used — not a real meeting
         return res.status(200).json({ exists: false, message: "No meeting found with this code." });
     }
 
     if (meeting.ended_at) {
-        // Meeting existed but has already ended
         return res.status(200).json({ exists: false, message: "This meeting has ended." });
     }
 
-    // Meeting exists in DB and hasn't ended yet
+    if (meeting.expires_at && meeting.expires_at < new Date()) {
+         await Meeting.findOneAndUpdate(
+            { meeting_code: code },
+            { $set: { ended_at: new Date() } }
+        );
+        return res.status(200).json({ exists: false, message: "This meeting code has expired." });
+    }
+
     return res.status(200).json({ exists: true });
 });
 
