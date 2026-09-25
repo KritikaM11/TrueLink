@@ -18,13 +18,6 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
-    token: {
-        type: String,
-        default: null,
-    },
-    tokenExpiry: {
-        type: Date
-    },
 });
 
 const User = mongoose.model("User", userSchema);

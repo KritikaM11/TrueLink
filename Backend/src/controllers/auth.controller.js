@@ -2,7 +2,7 @@ import { User } from "../models/user.model.js";
 import { wrapAsync } from "../utils/wrapAsync.js";
 import httpStatus from "http-status";
 import bcrypt from "bcrypt";
-import crypto from "crypto";
+import jwt from "jsonwebtoken";
 
 export const login = wrapAsync(async (req, res) => {
     const { username, password } = req.body;
@@ -16,13 +16,16 @@ export const login = wrapAsync(async (req, res) => {
     if (!await bcrypt.compare(password, user.password))
         return res.status(httpStatus.UNAUTHORIZED).json({ message: "Invalid password" });
 
-    const token = crypto.randomBytes(20).toString("hex");
-    const tokenExpiry = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 days
-    user.token = token;
-    user.tokenExpiry = tokenExpiry;
-    await user.save();
+    const token = jwt.sign(
+        { userId: user._id },
+        process.env.JWT_SECRET,
+        { expiresIn: process.env.JWT_EXPIRES_IN || "7d" }
+    );
 
-    return res.status(httpStatus.OK).json({ message: "Logged in successfully", token, name: user.name });
+    return res.status(httpStatus.OK).json({
+        message: "Logged in successfully",
+        token,
+        name: user.name });
 });
 
 export const register = wrapAsync(async (req, res) => {
@@ -42,6 +45,6 @@ export const register = wrapAsync(async (req, res) => {
 });
 
 export const verifyToken = wrapAsync(async (req, res) => {
-    const { user } = req; // populated by authenticate middleware
+    const { user } = req; 
     return res.status(200).json({ valid: true, name: user.name, username: user.username });
 });
