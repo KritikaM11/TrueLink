@@ -16,7 +16,7 @@ const useSocket = ({
 }) => {
 
     const connectToSocketServer = useCallback((username, isGuest) => {
-        socketRef.current = io.connect(SERVER_URL, { secure: false });
+        socketRef.current = io(SERVER_URL);
 
         // ── WebRTC signalling ──
         socketRef.current.on("signal", gotMessageFromServer);
