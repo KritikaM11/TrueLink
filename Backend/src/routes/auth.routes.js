@@ -15,8 +15,18 @@ const loginLimiter = rateLimit({
     legacyHeaders: false,
 });
 
+const registerLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 5,
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: {
+        message: "Too many registration attempts. Please try again later."
+    }
+});
+
 router.post("/login", loginLimiter,   login);
-router.post("/register", register);
+router.post("/register", registerLimiter, register);
 router.get("/verify",    authenticate, verifyToken);
 
 export default router;
